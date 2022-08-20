@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91627C3F28B131CC00C9200E /* EKWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91627C3E28B131CC00C9200E /* EKWrapper.swift */; };
 		9168EED228A98B0E00DAF4EA /* CalendarKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9168EED128A98B0E00DAF4EA /* CalendarKit */; };
 		9175323528A84BC300EE4738 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175323428A84BC300EE4738 /* AppDelegate.swift */; };
 		9175323728A84BC300EE4738 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9175323628A84BC300EE4738 /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91627C3E28B131CC00C9200E /* EKWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKWrapper.swift; sourceTree = "<group>"; };
 		9175323128A84BC300EE4738 /* CalenderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalenderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9175323428A84BC300EE4738 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9175323628A84BC300EE4738 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				9175323428A84BC300EE4738 /* AppDelegate.swift */,
 				9175323628A84BC300EE4738 /* SceneDelegate.swift */,
 				9175323828A84BC300EE4738 /* CalenderViewController.swift */,
+				91627C3E28B131CC00C9200E /* EKWrapper.swift */,
 				9175324028A84BC400EE4738 /* Assets.xcassets */,
 				9175324228A84BC400EE4738 /* LaunchScreen.storyboard */,
 				9175324528A84BC400EE4738 /* Info.plist */,
@@ -149,6 +152,7 @@
 				9175323528A84BC300EE4738 /* AppDelegate.swift in Sources */,
 				9175323728A84BC300EE4738 /* SceneDelegate.swift in Sources */,
 				9175323F28A84BC300EE4738 /* CalenderApp.xcdatamodeld in Sources */,
+				91627C3F28B131CC00C9200E /* EKWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

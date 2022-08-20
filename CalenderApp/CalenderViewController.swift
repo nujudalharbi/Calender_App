@@ -57,24 +57,30 @@ class CalenderViewController: DayViewController {
         let eventKitEvents = eventStore.events(matching: predicate)
         
         
-        let calenderKitEvents = eventKitEvents.map {
-            ekEvent   -> Event in
-           let ckEvent = Event()
-            let ckEvent1 = ekEvent
-            ckEvent1.startDate = ekEvent.startDate
-            ckEvent1.endDate = ekEvent.endDate
-            ckEvent.isAllDay = ekEvent.isAllDay
-            ckEvent.text = ekEvent.title
-            if let eventColor = ekEvent.calendar.cgColor {
-                
-                ckEvent.color = UIColor(cgColor: eventColor)
-            }
-            
-            return ckEvent
-            
-        }
+        let calenderKitEvents = eventKitEvents.map(Event.init)
+//        {
+//            ekEvent   -> Event in
+//           let ckEvent = Event()
+//            let ckEvent1 = ekEvent
+//            ckEvent1.startDate = ekEvent.startDate
+//            ckEvent1.endDate = ekEvent.endDate
+//            ckEvent.isAllDay = ekEvent.isAllDay
+//            ckEvent.text = ekEvent.title
+//            if let eventColor = ekEvent.calendar.cgColor {
+//
+//                ckEvent.color = UIColor(cgColor: eventColor)
+//            }
+//
+//            return ckEvent
+//
+//        }
 
         return calenderKitEvents
+    }
+    
+    
+    override func dayViewDidSelectEventView(_ eventView: EventView) {
+        print("event")
     }
 }
 
