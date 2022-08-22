@@ -8,7 +8,7 @@
 import UIKit
 import CalendarKit
 import EventKit
-
+import EventKitUI
 
 class CalenderViewController: DayViewController {
     
@@ -57,7 +57,7 @@ class CalenderViewController: DayViewController {
         let eventKitEvents = eventStore.events(matching: predicate)
         
         
-        let calenderKitEvents = eventKitEvents.map(Event.init)
+        let calenderKitEvents = eventKitEvents.map(EKWrapper.init)
 //        {
 //            ekEvent   -> Event in
 //           let ckEvent = Event()
@@ -80,7 +80,18 @@ class CalenderViewController: DayViewController {
     
     
     override func dayViewDidSelectEventView(_ eventView: EventView) {
-        print("event")
+        guard let ckEvent = eventView.descriptor as?  EKWrapper else {
+            
+            return
+        }
+        
+        let ekEvent = ckEvent.ekEvent
+        let eventViewController  = EKEventViewController()
+        eventViewController.event = ekEvent
+        eventViewController.allowsCalendarPreview = true
+        eventViewController.allowsEditing = true
+        navigationController?.pushViewController(eventViewController, animated: true)
     }
+    
 }
 

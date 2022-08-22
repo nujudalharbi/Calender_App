@@ -11,7 +11,7 @@ import CalendarKit
 import EventKit
 
 
-public final class Event: EventDescriptor {
+public final class EKWrapper: EventDescriptor {
     public var dateInterval = DateInterval()
     public var startDate : Date{
         get {
@@ -83,7 +83,7 @@ public final class Event: EventDescriptor {
         updateColors()
     }
 
-  public func makeEditable() -> Event {
+  public func makeEditable() -> EKWrapper {
    fatalError()
   }
 
