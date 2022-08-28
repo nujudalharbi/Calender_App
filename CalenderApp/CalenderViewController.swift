@@ -10,7 +10,7 @@ import CalendarKit
 import EventKit
 import EventKitUI
 
-class CalenderViewController: DayViewController {
+class CalenderViewController: DayViewController , EKEventEditViewDelegate{
     
    private let eventStore = EKEventStore()
     
@@ -86,12 +86,96 @@ class CalenderViewController: DayViewController {
         }
         
         let ekEvent = ckEvent.ekEvent
+        
+        presentDetailView(ekEvent)
+//        let eventViewController  = EKEventViewController()
+//        eventViewController.event = ekEvent
+//        eventViewController.allowsCalendarPreview = true
+//        eventViewController.allowsEditing = true
+//        navigationController?.pushViewController(eventViewController, animated: true)
+    }
+    private func presentDetailView(_ ekEvent: EKEvent){
         let eventViewController  = EKEventViewController()
         eventViewController.event = ekEvent
         eventViewController.allowsCalendarPreview = true
         eventViewController.allowsEditing = true
         navigationController?.pushViewController(eventViewController, animated: true)
+        
+        
+    }
+    override func dayViewDidLongPressEventView(_ eventView: EventView) {
+        endEventEditing()
+        guard let ckEvent = eventView.descriptor as? EKWrapper else {
+            
+            return
+        }
+        
+        beginEditing(event:ckEvent , animated: true)
     }
     
+    override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
+        guard let editingEvent = event as? EKWrapper else {
+            return
+        }
+        if let originalEvent = event.editedEvent{
+            
+            
+            
+            
+            editingEvent.commitEditing()
+            
+            
+            if originalEvent === editingEvent{
+                
+                
+                presentEditingViewForEvent(editingEvent.ekEvent)
+            }else {
+                
+                try! eventStore.save(editingEvent.ekEvent, span: .thisEvent)
+                
+            }
+           
+        }
+        reloadData()
+    }
+    func presentEditingViewForEvent(_ ekEvent : EKEvent){
+        
+        let editingViewController = EKEventViewController()
+//        editingViewController.editViewDelegate = self
+        editingViewController.event = ekEvent
+//        editingViewController.eventStore = eventStore
+        present(editingViewController, animated: true, completion: nil)
+        
+    }
+    
+    
+    override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
+        endEventEditing()
+    }
+    override func dayViewDidBeginDragging(dayView: DayView) {
+        endEventEditing()
+    }
+    override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
+        let newEKEvent = EKEvent(eventStore: eventStore)
+        newEKEvent.calendar = eventStore.defaultCalendarForNewEvents
+        
+        var oneHourComponents = DateComponents()
+        oneHourComponents.hour = 1
+        
+        let endDate = calendar.date(byAdding: oneHourComponents,  to: date)
+        newEKEvent.startDate = date
+        newEKEvent.endDate = endDate
+        newEKEvent.title = "New Event"
+        
+        let newEKWrapper = EKWrapper(eventKitEvent: newEKEvent)
+        newEKWrapper.editedEvent = newEKWrapper
+        
+        create(event: newEKWrapper, animated: true)
+    }
+    func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        endEventEditing()
+        reloadData()
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
 
